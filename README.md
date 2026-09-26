@@ -44,6 +44,25 @@ requirements.txt      fastapi, uvicorn[standard], pydantic
 docs/architecture.md  target architecture, pipeline states, planned /api/v1 surface
 ```
 
+## Local development
+
+Install the dependencies and run the API locally:
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+# interactive docs at http://127.0.0.1:8000/docs
+```
+
+### Endpoints (current)
+
+| Method | Path | Action |
+|---|---|---|
+| `POST` | `/campaigns` | Create a campaign (`name`, `aura`) → status `idea` |
+| `GET` | `/campaigns` | List campaigns |
+| `PATCH` | `/campaigns/{campaign_id}/state` | Set `status`; returns 404 if the campaign is unknown |
+
 ## Deploy
 
 There's no deploy configuration in the repository yet. Run it with any ASGI host, e.g. `uvicorn main:app`. Data doesn't persist across restarts.
